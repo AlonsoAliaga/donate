@@ -1,0 +1,277 @@
+/* Custom Minecraft Fonts */
+@font-face {
+    font-family: MinecraftRegular;
+    src: url(https://raw.githubusercontent.com/AlonsoAliaga/generator/main/assets/fonts/MinecraftRegular.otf);
+}
+@font-face {
+    font-family: MinecraftBold;
+    src: url(https://raw.githubusercontent.com/AlonsoAliaga/generator/main/assets/fonts/MinecraftBold.otf);
+}
+@font-face {
+    font-family: MinecraftItalic;
+    src: url(https://raw.githubusercontent.com/AlonsoAliaga/generator/main/assets/fonts/MinecraftItalic.otf);
+}
+@font-face {
+    font-family: MinecraftBoldItalic;
+    src: url(https://raw.githubusercontent.com/AlonsoAliaga/generator/main/assets/fonts/MinecraftBoldItalic.otf);
+}
+body {
+    font-family: 'MinecraftRegular', 'Inter', sans-serif; /* Use Minecraft font, fallback to Inter */
+    /* Enhanced Galaxy-themed background with more depth */
+    background: radial-gradient(circle at 15% 50%, #4a0080, transparent 70%),
+                radial-gradient(circle at 85% 20%, #001a4a, transparent 70%),
+                radial-gradient(circle at 50% 80%, #6a00ff, transparent 70%);
+    background-color: #050010; /* Deeper dark background */
+    color: #e0e0e0; /* Light grey text */
+    position: relative; /* For pseudo-elements */
+    overflow-x: hidden; /* Prevent horizontal scroll from gradients */
+}
+/* Subtle star background effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                      radial-gradient(circle, rgba(255, 255, 255, 0.08) 0.5px, transparent 0.5px);
+    background-size: 50px 50px, 20px 20px; /* Two layers of stars */
+    opacity: 0.7;
+    pointer-events: none; /* Allows clicks through to elements below */
+    z-index: -1; /* Place behind content */
+}
+.container {
+    max-width: 900px;
+}
+/* Styling for the main donation buttons (full width) */
+.donation-button {
+    background-color: rgba(43, 0, 85, 0.75); /* Slightly less transparent for better readability */
+    border: 1px solid #5a0090; /* Adjusted border color */
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%; /* Full width */
+    text-align: left;
+    color: #e0e0e0;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Slightly stronger initial shadow */
+    margin-bottom: -7px; /* Space between main buttons */
+}
+.donation-button:hover {
+    transform: translateY(-4px); /* Slightly more vertical lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* More prominent shadow on hover */
+    background-color: rgba(65, 0, 130, 0.9); /* More opaque and vibrant on hover */
+}
+.circular-logo {
+    border-radius: 50%;
+    border: 4px solid #6a00ff;
+    box-shadow: 0 0 15px rgba(106, 0, 255, 0.8); /* Slightly stronger glow */
+}
+.icon-display {
+    width: 32px; /* Standard size for icons/images */
+    height: 32px;
+    object-fit: contain;
+    /* Invert and brightness to make black icons white */
+    filter: invert(100%) brightness(200%) drop-shadow(0 0 3px rgba(106, 0, 255, 0.5));
+}
+/* Ensure SVG icons are white */
+.donation-button svg, .dropdown-content svg {
+    filter: invert(100%) brightness(200%);
+}
+/* Dropdown content styles */
+.dropdown-wrapper {
+    /* Removed margin-bottom here. Spacing between main buttons is handled by .donation-button's margin-bottom. */
+}
+.dropdown-content {
+    background-color: rgba(30, 0, 60, 0.9); /* Darker purple for dropdown */
+    border: 1px solid #4a0080; /* Default border */
+    border-top: none; /* No top border to blend with button */
+    border-radius: 0 0 0.5rem 0.5rem; /* Rounded corners only at bottom */
+    /* Initial state: no padding, no border width, hidden */
+    padding: 0;
+    border-width: 0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out, border-width 0.3s ease-out, margin-top 0.3s ease-out; /* Added padding, border-width, margin-top to transition */
+    overflow: hidden; /* Hide overflow during transition */
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0; /* No margin when closed */
+    display: flex; /* Changed to flexbox for better centering with fewer items */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: center; /* Center items horizontally when they don't fill the row */
+    gap: 1rem; /* Gap between grid items */
+}
+.dropdown-content.open {
+    max-height: 1200px; /* Increased max height for dropdown content */
+    opacity: 1;
+    padding: 1.5rem; /* Apply padding when open */
+    border-width: 1px; /* Apply border when open */
+    margin-top: 0.5rem; /* Add a small margin between button and dropdown when open */
+}
+/* Styles for items within dropdowns */
+.crypto-item, .affiliate-item {
+    background-color: rgba(43, 0, 85, 0.85);
+    border: 1px solid #5a0090;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* Flex properties for sizing within the flex container (dropdown-content) */
+    flex: 1 1 280px; /* Allows items to grow, shrink, with a base of 280px */
+    max-width: 450px; /* Ensures items don't get too wide on very large screens */
+}
+.merch-item {
+    background-color: rgba(43, 0, 85, 0.85);
+    border: 1px solid #5a0090;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* Flex properties for sizing within the flex container (dropdown-content) */
+    flex: 1 1 280px; /* Allows items to grow, shrink, with a base of 280px */
+    max-width: 450px; /* Ensures items don't get too wide on very large screens */
+}
+.click-ads-item {
+    background-color: rgba(43, 0, 85, 0.85);
+    border: 1px solid #5a0090;
+    border-radius: 0.5rem;
+    max-height: 180px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* Flex properties for sizing within the flex container (dropdown-content) */
+    flex: 1 1 400px; /* Allows items to grow, shrink, with a base of 280px */
+    max-width: 500px; /* Ensures items don't get too wide on very large screens */
+}
+.crypto-address-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+.crypto-address-container:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.crypto-address {
+    font-family: 'monospace', sans-serif;
+    font-size: 0.9rem;
+    color: #a0a0ff; /* Light purple for address */
+    word-break: break-all;
+    margin-right: 0.5rem;
+}
+.copy-button {
+    background: none;
+    border: none;
+    color: #80e0ff; /* Cyan-blue for copy icon */
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.2s ease-in-out;
+}
+.copy-button:hover {
+    color: #c0f0ff;
+}
+.copy-message {
+    font-size: 0.8rem;
+    color: #00ff00; /* Green for copied message */
+    margin-left: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.copy-message.show {
+    opacity: 1;
+}
+.merch-item .btn-primary {
+    background-color: #6a00ff; /* Vibrant purple for buttons */
+    color: white;
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 1rem; /* Smaller padding for internal button */
+}
+.merch-item .btn-primary:hover {
+    background-color: #5500cc;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+.big-text{
+    margin: 5px auto 2px auto !important;
+}
+.small-text{
+    margin: 2px auto 2px auto !important;
+    max-width: none !important
+}
+/* --- Updated .btn-primary for a more attractive look --- */
+.btn-primary {
+    width: 450px;
+    background-image: linear-gradient(to right, #6a00ff, #8a2be2); /* Purple to Blue Violet gradient */
+    color: white;
+    transition: all 0.3s ease-in-out; /* Smooth transition for all properties */
+    box-shadow: 0 4px 10px rgba(106, 0, 255, 0.4); /* Softer initial glow */
+    border: none; /* Remove default border */
+}
+.btn-primary:hover {
+    background-position: right center; /* Shifts gradient on hover */
+    background-image: linear-gradient(to right, #8a2be2, #6a00ff); /* Inverted gradient on hover */
+    box-shadow: 0 8px 20px rgba(106, 0, 255, 0.6); /* More intense glow on hover */
+    transform: translateY(-2px); /* Slight lift */
+}
+/* New styles for merchandise sub-sections */
+.merch-subsection {
+    background-color: rgba(30, 0, 60, 0.8); /* Slightly darker for sub-section containers */
+    border: 1px solid #5a0090;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem; /* Space between sub-sections */
+    text-align: center; /* Center overall sub-section content */
+    width: 100%; /* Make sub-section full width within the dropdown */
+}
+.merch-subsection-grid {
+    display: flex; /* Use flex for items within sub-section */
+    flex-wrap: wrap;
+    justify-content: center; /* Center items within the sub-section grid */
+    gap: 1rem; /* Gap between items */
+    margin-top: 1rem; /* Space between sub-section description and items */
+}
+/* Specific item sizing for inner dropdown items (merch and crypto) */
+.merch-subsection .merch-item, .dropdown-content .crypto-item {
+    flex: 1 1 280px; /* Allows items to grow, shrink, with a base of 280px */
+    max-width: 300px; /* Limits max width for aesthetic consistency */
+}
+#mybutton {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: MinecraftRegular;
+}
+#mybutton:hover {
+  bottom: 15px;
+  right: 15px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+.buttonface {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  background: none;
+}
