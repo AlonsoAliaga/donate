@@ -49,7 +49,92 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     loadCounter();
+    setTimeout(()=>{
+      loadChecking();
+      setInterval(()=>{
+        loadChecking();
+      },10000)
+    },2500)
 });
+let possibilities = [
+  `🟢 {ONLINE} heroes deciding how much XP to drop on us.`,
+  `🟢 {ONLINE} people thinking: “Maybe just one pizza won’t hurt…”`,
+  `🟢 {ONLINE} people are exploring ways to support AlonsoAliaga Development.`,
+  `🟢 {ONLINE} minds are considering fueling our next big idea.`,
+  `🟢 {ONLINE} people just one click away from becoming absolute legends.`,
+  `🟢 {ONLINE} players exploring ways to enchant our development.`,
+  `🟢 {ONLINE} users pretending they don’t see the donate button.`,
+  `🟢 {ONLINE} players stuck in AFK mode at the donation page.`,
+  `🟢 {ONLINE} players online — imagine if each chipped in 1 emerald.`,
+  `🟢 {ONLINE} players viewing the donation page — no pressure 😏`,
+  `🟢 {ONLINE} people enjoying these tools — one tip can keep them going.`,
+  `🟢 {ONLINE} online. Imagine the enchantments your support unlocks.`,
+
+  //New ones
+  `🟢 {ONLINE} brave souls one click away from unlocking Developer’s Grace IV.`,
+  `🟢 {ONLINE} pros online. Be the one who enchants our next release.`,
+  `🟢 {ONLINE} online now — join our hall of supporters with one small gesture.`,
+  `🟢 {ONLINE} heroes online. None have thrown emeralds… yet.`,
+  `🟢 {ONLINE} watching closely. Be the one who gets the secret achievement.`,
+  `🟢 {ONLINE} curious minds are currently trying to read this incredibly long message, which exists solely to delay you just enough to think “maybe I *should* donate,” while also making you wonder how long this message actually is, and whether there’s a secret at the end — spoiler: there isn’t, unless you count the warm feeling you’ll get after clicking that little donation button and knowing you helped a dev not cry into their keyboard tonight.`
+]
+function randomMessage() {
+  return possibilities[crypto.getRandomValues(new Uint32Array(1))[0] % possibilities.length];
+  //return possibilities[Math.floor(Math.random() * possibilities.length)];
+}
+if(false) {
+  let m = new Map();
+  for(let i = 0; i < 100; i++) {
+    let message = randomMessage();
+    if(!m.has(message)) m.set(message,0);
+    m.set(message,m.get(message) + 1);
+  }
+  for(let [k,v] of m) {
+    console.log(`${k.replace(/{ONLINE}/g,"7")}: ${v}`)
+  }
+}
+function loadChecking() {
+ let href = window.location.href;
+ //if(!href.includes(atob("YWxvbnNvYWxpYWdhLmdpdGh1Yi5pbw=="))) return;
+ let link = atob("aHR0cHM6Ly9hbG9uc29hcGkuZGlzY2xvdWQuYXBwL2NoZWNraW5nP3NpdGU9PHNpdGU+JmtleT08a2V5Pg==")
+  .replace(/<site>/g,"donate").replace(/<key>/g,"KEY-A");
+ let counter = document.getElementById("online-counter");
+ if(counter) {
+   $.ajax({
+     url: link,
+     type: "GET", /* or type:"GET" or type:"PUT" */
+     dataType: "json",
+     data: {
+     },
+     success: function (result) {
+        //console.log(`Total fails: ${counter.dataset.failed}`)
+        counter.dataset.failed = "0";
+        counter.style.display = "flex";
+        if(isNaN(result)) {
+         counter.textContent = `🟡 You shouldn't be reading this. Report it on https://alonsoaliaga.com/discord`;
+         counter.style.backgroundColor = "yellow";
+        }else{
+         //counter.textContent = `🟢 ${result} user${result==1?``:`s`} online using our Minecraft Profile Picture Generator!`;
+         counter.textContent = randomMessage().replace(/{ONLINE}/g,result);
+         counter.style.backgroundColor = "green";
+        }
+     },
+     error: function (e) {
+      //console.log(`Total fails: ${counter.dataset.failed}`)
+      if(counter.style.display != "none") {
+        let currentFails = +counter.dataset.failed;
+        if(currentFails >= 1){
+          counter.style.display = "none"
+        }else{
+          counter.textContent = `🔴 Check your internet connection!`;
+          counter.style.backgroundColor = "#7c0000";
+          counter.dataset.failed = `${currentFails + 1}`
+        }
+      }
+     }
+   });
+ }
+}
 let times = 0;
 function loadCounter() {
  let href = window.location.href;
